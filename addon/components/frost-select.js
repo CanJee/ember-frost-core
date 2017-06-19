@@ -82,6 +82,7 @@ export default Component.extend({
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
     onInput: PropTypes.func,
+    onClick: PropTypes.func,
     renderTarget: PropTypes.string,
     role: PropTypes.string,
     selected: PropTypes.oneOfType([
@@ -278,6 +279,10 @@ export default Component.extend({
   _onClick: on('click', function (e) {
     if (!this.get('disabled')) {
       this.toggleProperty('opened')
+      const onClick = this.get('onClick')
+      if (typeOf(onClick) === 'function') {
+        this.get('onClick')()
+      }
     }
     if (this.onClick) {
       this.onClick(e)
